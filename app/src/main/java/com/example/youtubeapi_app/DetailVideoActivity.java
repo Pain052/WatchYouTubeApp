@@ -39,7 +39,7 @@ public class DetailVideoActivity extends YouTubeBaseActivity implements YouTubeP
     VideoAdapter adapter;
 
     YouTubePlayerView youTubePlayerView;
-    String idVideo = "";
+    String idVideo = "", titleVideo = "", channelTitle = "", publishedAtTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,11 @@ public class DetailVideoActivity extends YouTubeBaseActivity implements YouTubeP
         //Get data from Home sender for this
         Intent intent = getIntent();
         idVideo = intent.getStringExtra("ID_VIDEO");
+        titleVideo = intent.getStringExtra("TITLE_VIDEO");
+        publishedAtTime = intent.getStringExtra("PUBLISH_AT");
+        channelTitle = intent.getStringExtra("CHANNEL_NAME");
+
+        setDataOnTextView(titleVideo, publishedAtTime, channelTitle);
 
         //init array list
         videoModelLists = new ArrayList<>();
@@ -71,6 +76,9 @@ public class DetailVideoActivity extends YouTubeBaseActivity implements YouTubeP
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(DetailVideoActivity.this, DetailVideoActivity.class);
                 intent.putExtra("ID_VIDEO", videoModelLists.get(i).getIdVideo());
+                intent.putExtra("TITLE_VIDEO", videoModelLists.get(i).getTitle());
+                intent.putExtra("PUBLISH_AT", videoModelLists.get(i).getPublishAt());
+                intent.putExtra("CHANNEL_NAME", videoModelLists.get(i).getChanelName());
                 startActivity(intent);
                 finish();
             }
@@ -129,11 +137,7 @@ public class DetailVideoActivity extends YouTubeBaseActivity implements YouTubeP
                                 JSONObject resourceId = jsonSnippet.getJSONObject("resourceId");
                                 videoId = resourceId.getString("videoId");
 
-                                tvTitle.setText(title);
-                                tvTime.setText(publishedAt);
-                                tvChanelName.setText(channelTitle + " NEWS");
-
-                                videoModelLists.add(new VideoModel(videoId, title, urlImageVideo, channelTitle));
+                                videoModelLists.add(new VideoModel(videoId, title, urlImageVideo, channelTitle, publishedAt));
                             }
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -150,6 +154,11 @@ public class DetailVideoActivity extends YouTubeBaseActivity implements YouTubeP
         requestQueue.add(jsonObjectRequest);
     }
 
+    private void setDataOnTextView(String titleVideo, String publishAtVideo, String channelNameOfVideo){
+        tvTitle.setText(titleVideo);
+        tvTime.setText(publishAtVideo);
+        tvChanelName.setText(channelNameOfVideo + " NEWS");
+    }
 
     //redirect to HomeActivity
     @Override

@@ -5,6 +5,7 @@ public class VideoModel {
     private String title;
     private String urlImage;
     private String chanelName;
+    private String publishAt;
 
     public VideoModel() {
     }
@@ -14,6 +15,14 @@ public class VideoModel {
         this.title = title;
         this.urlImage = urlImage;
         this.chanelName = chanelName;
+    }
+
+    public VideoModel(String idVideo, String title, String urlImage, String chanelName, String publishAt) {
+        this.idVideo = idVideo;
+        this.title = title;
+        this.urlImage = urlImage;
+        this.chanelName = chanelName;
+        this.publishAt = publishAt;
     }
 
     public String getIdVideo() {
@@ -46,5 +55,13 @@ public class VideoModel {
 
     public void setChanelName(String chanelName) {
         this.chanelName = chanelName;
+    }
+
+    public String getPublishAt() {
+        return publishAt;
+    }
+
+    public void setPublishAt(String publishAt) {
+        this.publishAt = publishAt;
     }
 }

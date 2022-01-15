@@ -51,6 +51,9 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(HomeActivity.this, DetailVideoActivity.class);
                 intent.putExtra("ID_VIDEO", videoModelLists.get(i).getIdVideo());
+                intent.putExtra("TITLE_VIDEO", videoModelLists.get(i).getTitle());
+                intent.putExtra("PUBLISH_AT", videoModelLists.get(i).getPublishAt());
+                intent.putExtra("CHANNEL_NAME", videoModelLists.get(i).getChanelName());
                 startActivity(intent);
             }
         });
@@ -74,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                         //Get Information important
                         title = jsonSnippet.getString("title");
                         channelTitle = jsonSnippet.getString("channelTitle");
-//                        publishedAt = jsonSnippet.getString("publishedAt");
+                        publishedAt = jsonSnippet.getString("publishedAt");
 
                         //Get Url Image Video
                         JSONObject thumbnails = jsonSnippet.getJSONObject("thumbnails");
@@ -84,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
                         JSONObject resourceId = jsonSnippet.getJSONObject("resourceId");
                         videoId = resourceId.getString("videoId");
 
-                        videoModelLists.add(new VideoModel(videoId, title, urlImageVideo, channelTitle));
+                        videoModelLists.add(new VideoModel(videoId, title, urlImageVideo, channelTitle, publishedAt));
                     }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {

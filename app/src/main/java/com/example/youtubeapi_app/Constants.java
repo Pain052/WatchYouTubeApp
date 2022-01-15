@@ -8,5 +8,5 @@ public class Constants {
             "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&" +
                     "playlistId=" + ID_PLAYLIST +
                     "&key=" + YOUTUBE_API_KEY +
-                    "&maxResults=10000";
+                    "&maxResults=50";
 }
